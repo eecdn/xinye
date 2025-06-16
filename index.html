@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>芯烨服务导航</title>
+    <link rel="stylesheet" href="https://cdn.eees.cn/fontawesome/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0f7fb, #e1f0fa);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 标题样式 */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 10px 30px rgba(7, 193, 96, 0.15);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 5px solid #07C160;
+        }
+        
+        .header h1 {
+            color: #06ad56;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+            padding: 0 15px;
+        }
+        
+        .header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, rgba(7,193,96,0), #07C160, rgba(7,193,96,0));
+            border-radius: 3px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 15px auto 0;
+        }
+        
+        .wechat-logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.8rem;
+            color: #06ad56;
+            display: flex;
+            align-items: center;
+        }
+        
+        .wechat-logo i {
+            margin-right: 10px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* 分组样式 - 列表模式 */
+        .group {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            animation: slideIn 0.5s ease-out;
+            transition: transform 0.3s ease;
+        }
+        
+        .group:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .group-title {
+            background: linear-gradient(135deg, #07C160, #06ad56);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: 22px 30px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .group-title i {
+            margin-right: 15px;
+            font-size: 1.4rem;
+            background: rgba(255,255,255,0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .group-title::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 80px;
+            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.25));
+        }
+        
+        /* 列表模式样式 */
+        .links-container {
+            padding: 15px 0;
+        }
+        
+        .link-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 30px;
+            position: relative;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            border-bottom: 1px solid rgba(240, 240, 240, 0.8);
+        }
+        
+        /* 最后一项去掉底边框 */
+        .link-item:last-child {
+            border-bottom: none;
+        }
+        
+        .link-item:hover {
+            background-color: rgba(7, 193, 96, 0.05);
+        }
+        
+        /* 链接项动画效果 */
+        .link-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, rgba(7,193,96,0.05), transparent);
+            transition: width 0.5s ease;
+            z-index: 0;
+        }
+        
+        .link-item:hover::before {
+            width: 100%;
+        }
+        
+        .link-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(245, 247, 250, 0.7);
+            border-radius: 12px;
+            color: #07C160;
+            margin-right: 20px;
+            transition: all 0.4s ease;
+            font-size: 1.4rem;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .link-item:hover .link-icon {
+            transform: translateY(-5px) rotate(5deg);
+            box-shadow: 0 8px 15px rgba(7, 193, 96, 0.25);
+        }
+        
+        .link-text-container {
+            flex: 1;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .link-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .link-desc {
+            color: #777;
+            font-size: 0.95rem;
+        }
+        
+        .link-action {
+            color: rgba(7, 193, 96, 0.8);
+            font-size: 1.2rem;
+            padding-left: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .link-item:hover .link-action {
+            color: #07C160;
+            transform: translateX(5px);
+        }
+        
+        /* 为不同链接添加不同的图标颜色 */
+        .link-item:nth-child(1) .link-icon { background-color: #e8f9ef; color: #07C160; }
+        .link-item:nth-child(2) .link-icon { background-color: #fff1e0; color: #ff7d1a; }
+        .link-item:nth-child(3) .link-icon { background-color: #f3f8e9; color: #8bc34a; }
+        .link-item:nth-child(4) .link-icon { background-color: #fff2f1; color: #e53935; }
+        .link-item:nth-child(5) .link-icon { background-color: #f0f9ff; color: #2196f3; }
+        .link-item:nth-child(6) .link-icon { background-color: #f9f0ff; color: #9c27b0; }
+        .link-item:nth-child(7) .link-icon { background-color: #fff8e1; color: #ff9800; }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .group-title {
+                font-size: 1.3rem;
+                padding: 18px 25px;
+            }
+            
+            .group-title i {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+            
+            .link-item {
+                padding: 16px 20px;
+            }
+            
+            .link-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 20px 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.7rem;
+            }
+            
+            .header p {
+                font-size: 0.95rem;
+            }
+            
+            .wechat-logo {
+                position: static;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+            
+            .group-title {
+                font-size: 1.2rem;
+                padding: 15px 20px;
+            }
+            
+            .link-text {
+                font-size: 1.15rem;
+            }
+        }
+        
+        /* 页脚样式 */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.95rem;
+            padding: 25px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .footer p:first-child {
+            margin-bottom: 5px;
+        }
+        
+        .pulse-badge {
+            display: inline-block;
+            margin-left: 8px;
+            background: #ff3b30;
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            animation: pulse 1.5s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="wechat-logo">
+                <i class="fa-brands fa-weixin"></i>
+                <span></span>
+            </div>
+            <h1>服务导航</h1>
+            <p>轻松连接网络 • 快速掌握各类应用教程</p>
+        </div>
+        
+        <!-- 连接网络组 - 列表模式 -->
+        <div class="group">
+            <div class="group-title">
+                <i class="fas fa-wifi"></i>
+                <span>连接网络</span>
+            </div>
+            <div class="links-container">
+                <a href="https://mp.weixin.qq.com/s/dxSkqoxrKBKHAUuMs8-law" class="link-item">
+                    <div class="link-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div class="link-text-container">
+                        <div class="link-text">怎么连接WIFI</div>
+                        <div class="link-desc">简单三步快速连接无线网络</div>
+                    </div>
+                    <div class="link-action">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- 教程组 - 列表模式 -->
+        <div class="group">
+            <div class="group-title">
+                <i class="fas fa-graduation-cap"></i>
+                <span>教程</span>
+            </div>
+            <div class="links-container">
+                <a href="https://mp.weixin.qq.com/s/5_awPhs78kIiqFhVN0giHA" class="link-item">
+                    <div class="link-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="link-text-container">
+                        <div class="link-text">京东外卖</div>
+                        <div class="link-desc">快速下单，闪电送达</div>
+                    </div>
+                    <div class="link-action">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                <a href="https://mp.weixin.qq.com/s/7eA41-tQatAT4JW7AjIWnQ" class="link-item">
+                    <div class="link-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="link-text-container">
+                        <div class="link-text">美团外卖</div>
+                        <div class="link-desc">美食一步到位</div>
+                    </div>
+                    <div class="link-action">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                <a href="https://mp.weixin.qq.com/s/m0LKYm8J63hTEy4E2KE3ag" class="link-item">
+                    <div class="link-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="link-text-container">
+                        <div class="link-text">美团闪购</div>
+                        <div class="link-desc">急你所急，快人一步</div>
+                    </div>
+                    <div class="link-action">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                <a href="https://mp.weixin.qq.com/s/I0dp0lBjRM7ThqcFR9_5qg" class="link-item">
+                    <div class="link-icon">
+                        <i class="fas fa-hamburger"></i>
+                    </div>
+                    <div class="link-text-container">
+                        <div class="link-text">饿了么餐饮</div>
+                        <div class="link-desc">品质美食送到家</div>
+                    </div>
+                    <div class="link-action">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                <a href="https://mp.weixin.qq.com/s/iUDXYwm3rA4nFqMQC8fJ2Q" class="link-item">
+                    <div class="link-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="link-text-container">
+                        <div class="link-text">饿了么零售</div>
+                        <div class="link-desc">日用百货，轻松到家</div>
+                    </div>
+                    <div class="link-action">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                <a href="https://mp.weixin.qq.com/s/7CjWIUKtlJBqkEgLMdVYAA" class="link-item">
+                    <div class="link-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="link-text-container">
+                        <div class="link-text">抖音外卖</div>
+                        <div class="link-desc">边看视频边点餐</div>
+                    </div>
+                    <div class="link-action">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                <a href="https://mp.weixin.qq.com/s/Vn7J28zdX8msL_HRDcvj4Q" class="link-item">
+                    <div class="link-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <div class="link-text-container">
+                        <div class="link-text">抖音小时达</div>
+                        <div class="link-desc">超值超快优惠</div>
+                    </div>
+                    <div class="link-action">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 微信生活助手 | 让生活更便捷</p>
+            <p>微信绿色生活 · 一站式服务平台</p>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为每个链接项添加延迟动画效果
+            const linkItems = document.querySelectorAll('.link-item');
+            
+            linkItems.forEach((item, index) => {
+                item.style.animationDelay = `${index * 0.08}s`;
+                item.style.opacity = "0";
+                item.style.animation = `slideIn 0.4s forwards ${index * 0.08}s`;
+            });
+            
+            // 为组别添加延迟动画
+            const groups = document.querySelectorAll('.group');
+            groups.forEach((group, index) => {
+                group.style.animationDelay = `${index * 0.15}s`;
+            });
+            
+            // 图标悬停效果增强
+            const icons = document.querySelectorAll('.link-icon');
+            icons.forEach(icon => {
+                icon.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) rotate(8deg)';
+                });
+                
+                icon.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) rotate(0)';
+                });
+            });
+        });
+    </script>
+    
+    
+    
+    <!-- 隐藏的音频元素 -->
+<audio id="clickSound" src="https://cdn.eees.cn/audio/click.mp3" preload="auto"></audio>
+    <script>
+// 监听整个文档的点击事件
+document.addEventListener('click', () => {
+  const clickSound = document.getElementById('clickSound');
+  clickSound.play();
+});
+    </script>
+</body>
+</html>
