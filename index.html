@@ -6,6 +6,76 @@
     <title>芯烨服务导航</title>
     <link rel="stylesheet" href="https://cdn.eees.cn/fontawesome/css/all.min.css">
     <style>
+            /* 原有样式保持不变... */
+        
+        /* 新增图片框样式 */
+        .banner-box {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+            aspect-ratio: 1/1;
+            background: url('./xinye.jpg') center/cover no-repeat;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(7, 193, 96, 0.2);
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInZoom 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        
+        @keyframes fadeInZoom {
+            from { 
+                opacity: 0; 
+                transform: scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1); 
+            }
+        }
+        
+        .banner-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(7, 193, 96, 0.05), transparent 70%);
+            pointer-events: none;
+        }
+        
+        .banner-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4);
+            pointer-events: none;
+        }
+        
+        /* 原有媒体查询保持不变... */
+        
+        @media (max-width: 768px) {
+            .banner-box {
+                max-width: 350px;
+                margin: 15px auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .banner-box {
+                max-width: 280px;
+                margin: 10px auto;
+            }
+        }
         * {
             margin: 0;
             padding: 0;
@@ -343,6 +413,7 @@
     </style>
 </head>
 <body>
+<body>
     <div class="container">
         <div class="header">
             <div class="wechat-logo">
@@ -350,8 +421,14 @@
                 <span></span>
             </div>
             <h1>服务导航</h1>
-            <p>轻松连接网络 • 快速掌握各类应用教程</p>
+            <!-- 添加的图片框 -->
+            <div class="banner-box"></div>
+            <p>访问公众号了解更多功能！</p>
         </div>
+        
+        <!-- 原有分组结构保持不变... -->
+        
+    </div>
         
         <!-- 连接网络组 - 列表模式 -->
         <div class="group">
@@ -476,6 +553,27 @@
     </div>
     
     <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            // 原有脚本保持不变...
+            
+            // 图片框的悬浮效果增强
+            const bannerBox = document.querySelector('.banner-box');
+            if(bannerBox) {
+                bannerBox.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02) rotate(1deg)';
+                    this.style.boxShadow = '0 12px 35px rgba(7, 193, 96, 0.3)';
+                });
+                
+                bannerBox.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) rotate(0)';
+                    this.style.boxShadow = '0 8px 25px rgba(7, 193, 96, 0.2)';
+                });
+                
+                bannerBox.addEventListener('click', function() {
+                    window.location.href = 'https://mp.weixin.qq.com/s/dxSkqoxrKBKHAUuMs8-law';
+                });
+            }
+        });
         document.addEventListener('DOMContentLoaded', function() {
             // 为每个链接项添加延迟动画效果
             const linkItems = document.querySelectorAll('.link-item');
